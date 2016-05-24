@@ -55,7 +55,6 @@ class ViewController: NSViewController {
             isRunning = false
             webserverTask!.terminate()
         } else {
-            print("webserver button \(textFieldPath.stringValue).\(String(textPort.intValue)).. ")
             let range = Range(start: 0,end: 6)
             let dirPath = textFieldPath.stringValue.substringFromIndex("file://".endIndex)
             startServerScript([ dirPath, String(textPort.intValue)])
@@ -72,7 +71,7 @@ class ViewController: NSViewController {
             dispatch_async(taskQueue) {
                 
                 guard let path = NSBundle.mainBundle().pathForResource("SimpleWebServer",ofType:"command") else {
-                    print("Unable to locate BuildScript.command")
+                    print("Unable to locate SimpleWebServer.command")
                     return
                 }
                 
@@ -87,7 +86,7 @@ class ViewController: NSViewController {
                 
                 self.webserverTask?.terminationHandler = {
                     task in
-                    print("FIMMMMMM")
+                    print("WebServer stopped")
                     dispatch_async(dispatch_get_main_queue(), {
                         self.isRunning = false
                         self.updateUI()
